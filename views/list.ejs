@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>To do</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="https://img.icons8.com/plasticine/100/000000/list.png">
+</head>
+
+<body>
+    <h1>
+        <%= listTitle %>
+    </h1>
+    <!-- Be careful with the closing tag that is not the same! -->
+    <% if (kindOfDay === "Saturday" || kindOfDay === "Sunday") { %>
+    <h1 style="color: #ffe5ae">
+        <%= kindOfDay %> to-dos</h1>
+    <% } else { %>
+    <h1 style="color: #ff62a5">
+        <%= kindOfDay %> to-dos</h1>
+    <% } %>
+    <ul>
+        <li>learn coding</li>
+        <% for (var i=0; i<newListItems.length; i++) { %>
+        <li>
+            <%= newListItems[i] %>
+        </li>
+        <% } %>
+    </ul>
+    <form class="" action="/" method="post">
+        <input type="text" name="newItem">
+        <button type="submit" name="list" value=<%=listTitle%>>+</button>
+    </form>
+</body>
+
+</html>
