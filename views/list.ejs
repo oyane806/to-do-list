@@ -21,10 +21,11 @@
         <%= kindOfDay %> to-dos</h1>
     <% } %>
     <ul>
-        <li>learn coding</li>
         <% for (var i=0; i<newListItems.length; i++) { %>
         <li>
-            <%= newListItems[i] %>
+            <input type="checkbox">
+            <span>
+                <%= newListItems[i] %></span>
         </li>
         <% } %>
     </ul>

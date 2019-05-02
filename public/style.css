@@ -1,10 +1,15 @@
 body {
-	background-color: #dee0d9;
-	font-family: Helvetica;
-	color: #6b76ff;
-	text-align: center;
+    background-color: #dee0d9;
+    font-family: Helvetica;
+    color: #6b76ff;
+    text-align: center;
 }
 
 ul {
-	padding-left: 0px;
+    padding-left: 0px;
+}
+
+input:checked+span {
+    text-decoration: line-through;
+    text-decoration-color: #A683E3;
 }
