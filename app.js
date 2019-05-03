@@ -2,14 +2,36 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const date = require(__dirname + "/date.js");
 const app = express();
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true });
 
-const items = [];
-const workItems = [];
+const itemsSchema = new mongoose.Schema({
+    name: String
+});
+
+const Item = mongoose.model("Item", itemsSchema);
+
+const item1 = new Item({
+    name: "item1"
+});
+
+const item2 = new Item({
+    name: "item2"
+});
+
+const defaultItems = [item1, item2];
+
+
+
+
+
+// const items = [];
+// const workItems = [];
 
 app.set("view engine", "ejs");
 // Need to put set and not use here
@@ -21,11 +43,32 @@ app.get("/", function(req, res) {
     const animals = ["🐶", "🐱", "🦄", "🐳", "🐸 "]
     let list = animals[Math.floor(Math.random() * animals.length)];
 
-    res.render("list", {
-        listTitle: list,
-        kindOfDay: day,
-        newListItems: items
+    Item.find(function(err, foundItems) {
+        if (foundItems.length === 0) {
+            Item.insertMany(defaultItems, function(err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("added");
+                }
+            });
+            res.redirect("/");
+        } else {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("list", {
+                    listTitle: list,
+                    kindOfDay: day,
+                    newListItems: foundItems
+                });
+            }
+
+        }
+
     });
+
+
 
 });
 
@@ -38,16 +81,35 @@ app.get("/work", function(req, res) {
 });
 
 app.post("/", function(req, res) {
-    const item = req.body.newItem;
+    const itemName = req.body.newItem;
+
     if (req.body.list === "work") {
         workItems.push(item);
         res.redirect("work");
     } else {
-        items.push(item);
+        const item = new Item({
+            name: itemName
+        });
+        item.save();
         res.redirect("/");
     };
 
 
+});
+
+app.post("/delete", function(req, res){
+    const checkedItemId = req.body.checkbox;
+    console.log(checkedItemId);
+    Item.findByIdAndRemove(checkedItemId, function(err){
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("deleted");
+            res.redirect("/");
+
+        }
+    });
+    // Need to use the callback function to delete successfully
 });
 
 app.post("/work", function(req, res) {

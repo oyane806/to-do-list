@@ -21,13 +21,16 @@
         <%= kindOfDay %> to-dos</h1>
     <% } %>
     <ul>
-        <% for (var i=0; i<newListItems.length; i++) { %>
+        <% newListItems.forEach(function(item){%>
+        <form action="/delete" method="post">
         <li>
-            <input type="checkbox">
+            <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
+            <!-- When the checkbox is checked, it will post -->
             <span>
-                <%= newListItems[i] %></span>
+                <%= item.name %></span>
         </li>
-        <% } %>
+        </form>
+        <% }) %>
     </ul>
     <form class="" action="/" method="post">
         <input type="text" name="newItem">
