@@ -23,18 +23,19 @@
     <ul>
         <% newListItems.forEach(function(item){%>
         <form action="/delete" method="post">
-        <li>
-            <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
-            <!-- When the checkbox is checked, it will post -->
-            <span>
-                <%= item.name %></span>
-        </li>
+            <li>
+                <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()"></input>
+                <!-- When the checkbox is checked, it will post -->
+                <span>
+                    <%= item.name %></span>
+            </li>
+            <input type="hidden" name="listName" value="<%=kindOfDay%>"></input>
         </form>
         <% }) %>
     </ul>
-    <form class="" action="/" method="post">
+    <form class="item" action="/" method="post">
         <input type="text" name="newItem">
-        <button type="submit" name="list" value=<%=listTitle%>>+</button>
+        <button type="submit" name="list" value=<%=kindOfDay%>>+</button>
     </form>
 </body>
 
