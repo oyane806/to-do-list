@@ -9,7 +9,8 @@ const app = express();
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
-mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://${process.env.MONGODB_ID}:${process.env.MONGODB_KEY}@cluster0-ernln.mongodb.net/todolistDB", { useNewUrlParser: true });
 
 const itemsSchema = new mongoose.Schema({
     name: String
@@ -45,7 +46,7 @@ app.get("/", function(req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log("added");
+                    console.log("Added!");
                 }
             });
             res.redirect("/");
@@ -119,7 +120,7 @@ app.post("/delete", function(req, res) {
             if (err) {
                 console.log(err);
             } else {
-                console.log("deleted");
+                console.log("Deleted!");
                 res.redirect("/");
             }
         });
@@ -142,6 +143,11 @@ app.post("/work", function(req, res) {
     res.redirect("/work");
 });
 
-app.listen(3000, function() {
-    console.log("Server started on port 3000");
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 3000;
+}
+
+app.listen(port, function() {
+    console.log("Server has started successfully.");
 });
