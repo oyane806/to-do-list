@@ -25,7 +25,12 @@ node app.js
 ## Contributing
 to-do-list has been built to learn the basics of full-stack web development.  
 To do:
-- [x] figure out how to work with Heroku config variables to hide the MongoDB authentification information
+- [x] use .gitignore to remove the node_modules folder  
+Because it was already committed, I had to untrack it first:
+```git
+git rm --cached node_modules
+```
+- [ ] figure out how to work with Heroku config variables to hide the MongoDB authentification information
 - [ ] add a feature to modify a to-do
 
 ## License
