@@ -12,8 +12,8 @@ const mongodbKey = process.env.MONGODB_KEY;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
-mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true });
-// mongoose.connect("mongodb+srv://${process.env.MONGODB_ID}:${process.env.MONGODB_KEY}@cluster0-ernln.mongodb.net/todolistDB", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true });
+mongoose.connect(`mongodb+srv://${mongodbId}:${mongodbKey}@cluster0-ernln.mongodb.net/todolistDB`, { useNewUrlParser: true });
 // mongoose.connect("mongodb+srv://" + mongodbId + ":" + mongodbKey + "@cluster0-ernln.mongodb.net/todolistDB", { useNewUrlParser: true });
 
 const itemsSchema = new mongoose.Schema({
